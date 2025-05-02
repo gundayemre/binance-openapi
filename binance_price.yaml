@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title: Binance Spot Fiyat API
+  version: 1.0.0
+paths:
+  /api/v3/ticker/price:
+    get:
+      summary: Coin'in güncel fiyatını getir
+      parameters:
+        - in: query
+          name: symbol
+          required: true
+          schema:
+            type: string
+          description: Binance coin sembolü (örneğin BTCUSDT, ETHUSDT)
+      responses:
+        '200':
+          description: Başarılı yanıt
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  symbol:
+                    type: string
+                  price:
+                    type: string
+servers:
+  - url: https://api.binance.com
