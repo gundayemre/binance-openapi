@@ -1,0 +1,66 @@
+openapi: 3.1.0
+info:
+  title: Binance Spot Price + Klines API (TRY Odaklı)
+  version: 1.0.0
+paths:
+  /api/v3/ticker/price:
+    get:
+      operationId: getBinancePriceTRY
+      summary: Get current spot price of a coin (TRY only)
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Coin pair symbol (must end with TRY, e.g., BTCTRY, AVAXTRY)
+      responses:
+        '200':
+          description: Successful price retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  symbol:
+                    type: string
+                  price:
+                    type: string
+
+  /api/v3/klines:
+    get:
+      operationId: getKlines
+      summary: Get historical candlestick (OHLC) data for RSI calculation
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Coin pair symbol (e.g., BTCTRY)
+        - name: interval
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Time interval (e.g., 1h, 4h, 1d)
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Number of candles (e.g., 100 for RSI)
+      responses:
+        '200':
+          description: List of candlestick data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: string
+
+servers:
+  - url: https://api.binance.com
